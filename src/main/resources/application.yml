@@ -1,0 +1,62 @@
+server:
+  port: 7777
+spring:
+  application:
+    name: books
+  thymeleaf:
+    cache: false
+    encoding: utf-8
+    # 热部署，修改类和资源时不重启服务
+  devtools:
+    restart:
+      enabled: true   #设置开启热部署
+      additional-paths: src/main/java #重启目录
+      exclude: static
+  freemarker:
+    cache: false #页面加载不缓存，修改即时生效
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hotel?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 200601
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: TutorialsHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+
+
+
+#web endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+#??mybatis??
+logging:
+  level:
+   root: INFO
+   com.pre.wfj.mapper: debug
+   com.pre.wfj.controller: debug
+  pattern:
+    file: '%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} -%msg%n'
+    console: '%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} -%msg%n'
+
+
+
+mybatis:
+  type-aliases-package: com.pre.wfj
+
+#分页
+pagehelper:
+  helper-dialect: mysql
+
+
+
